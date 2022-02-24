@@ -5,30 +5,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class Country {
 
-    public String name;
+    public String country;
     public String capital;
+    public String flag;
 
-    public Country(String name, String capital) {
-        this.name = name;
+    public Country(String country, String capital, String flag) {
+        this.country = country;
         this.capital = capital;
+        this.flag = flag;
     }
 
     public Country() {
     }
 
-    public String getName() {
-        return name;
+    public String getFlag() {
+        return flag;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return country;
     }
 
     public String getCapital() {
         return capital;
     }
 
-    public void setCapital(String capital) {
-        this.capital = capital;
-    }
 }

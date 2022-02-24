@@ -13,7 +13,6 @@ import java.util.List;
 @Controller
 public class QuizController {
 
-
     @Autowired
     Country country;
 
@@ -72,14 +71,17 @@ public class QuizController {
         return "quiz";
     }
 
+
     @PostMapping("/quiz")
-    public String quiz(Model model){
-        List<Country> list = countries.getCountries();
-        model.addAttribute("country", list.get(0).getCapital());
-        model.addAttribute("num1", list.get(1).getCapital());
-        model.addAttribute("num2", list.get(2).getCapital());
+    public String postQuiz(@ModelAttribute Model model, Question question){
+
+
+
+
         return "quiz";
     }
+
+
 
 
 

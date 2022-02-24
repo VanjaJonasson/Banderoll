@@ -1,29 +1,21 @@
 package com.example.Banderoll;
 
-import lombok.Getter;
-import lombok.Setter;
+
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
+@Service
 public class Question {
-    @Setter
-    @Getter
+
     private String rightAnswer;
-    @Setter
-    @Getter
-    private String wrongAnswer1;
-    @Setter
-    @Getter
-    private String wrongAnswer2;
-    @Setter
-    @Getter
-    private String wrongAnswer3;
+
     private String[] answers = new String[4];
-    @Getter
+
     String question;
-    @Getter
+
     String correctAnswer;
 
     public Question(int typeOfQuestion) throws Exception {
@@ -68,6 +60,22 @@ public class Question {
         arrayToString();
         randomizeAnswers();
 
+    }
+
+    public String getRightAnswer() {
+        return rightAnswer;
+    }
+
+    public String[] getAnswers() {
+        return answers;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
     private void randomizeAnswers() {
