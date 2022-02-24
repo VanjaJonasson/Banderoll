@@ -1,6 +1,6 @@
 package com.example.Banderoll;
 
-import lombok.Getter;
+//import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

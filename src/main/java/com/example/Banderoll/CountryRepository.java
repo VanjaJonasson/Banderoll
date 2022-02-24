@@ -10,6 +10,7 @@ public class CountryRepository {
 
     private List<Country> countries;
 
+    /*
     public CountryRepository() {
         countries = new ArrayList<>();
         countries.add(new Country("Sweden", "Stockholm"));
@@ -17,6 +18,8 @@ public class CountryRepository {
         countries.add(new Country("Denmark", "Copenhagen"));
         countries.add(new Country("France", "Paris"));
     }
+
+     */
 
 
     public List<Country> getCountries() {

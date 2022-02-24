@@ -18,6 +18,9 @@ public class Question {
 
     String correctAnswer;
 
+    public Question() {
+    }
+
     public Question(int typeOfQuestion) {
 try {
 

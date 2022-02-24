@@ -17,6 +17,9 @@ public class QuizController {
     Country country;
 
     @Autowired
+    Question question;
+
+    @Autowired
     CountryRepository countries;
 
     @Autowired
@@ -67,14 +70,41 @@ public class QuizController {
     }
 
     @GetMapping("/quiz")
-    public String quiz(Model model) {
+    public String options() {
+        return "quiz";
+    }
+
+
+    @GetMapping("/capital")
+    public String capitals(Model model) {
+        Question q = new Question(2);
+        String s = q.getQuestion();
+        String[] answers = q.getAnswers();
+        model.addAttribute("question", s);
+        model.addAttribute("answers", answers);
+        return "capital";
+    }
+
+    @GetMapping("/country")
+    public String country(Model model) {
         Question q = new Question(1);
         String s = q.getQuestion();
         String[] answers = q.getAnswers();
-        model.addAttribute("question",s);
-        model.addAttribute("answers",answers);
-        return "quiz";
+        model.addAttribute("question", s);
+        model.addAttribute("answers", answers);
+        return "country";
     }
+
+    @GetMapping("/flag")
+    public String flag(Model model) {
+        Question q = new Question(3);
+        String s = q.getQuestion();
+        String[] answers = q.getAnswers();
+        model.addAttribute("question", s);
+        model.addAttribute("answers", answers);
+        return "flag";
+    }
+
 
 
     @PostMapping("/quiz")

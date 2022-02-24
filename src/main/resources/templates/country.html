@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p> Which country's flag is this?</p>
+
+<br>
+<br>
+
+<img src="${question} + '.url'">
+
+<select>
+    <option value="">Select your answer</option>
+    <option th:each="answer : ${answers}"
+            th:value="test"
+            th:text="${answer}"></option>
+</select>
+
+
+</body>
+</html>
