@@ -81,17 +81,6 @@ public class QuizController {
         return "quiz";
     }
 
-/*
-    @PostMapping("/quiz/{numq}")
-    public String game(@ModelAttribute Country country, Model model, HttpSession session, @PathVariable Integer numq){
-        List<Country> list = countries.getCountries();
-        model.addAttribute("countries", list);
-
-
-        return "redirect:/quiz";
-    }
-
- */
 
 
     }
