@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BanderollApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)throws Exception {
 		SpringApplication.run(BanderollApplication.class, args);
-
+		new ApiController();
 		System.out.println("hej");
 	}
 
