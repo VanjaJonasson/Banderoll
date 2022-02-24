@@ -93,6 +93,14 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- Rest Assured-->
+		<!---Lombok dependencies-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
+			<scope>provided</scope>
+		</dependency>
+		<!---Lombok dependencies-->
     </dependencies>
 
 	<build>
