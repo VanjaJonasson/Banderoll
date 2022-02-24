@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<img src="https://i.postimg.cc/qRZTjHWz/banderolepng.png" width="350" : class="center">
+
+
+<!--
+<form action="/savePlayer" th:object="${player}" method="POST">
+-->
+
+<form action="/login" method="POST">
+    <input type="text" placeholder="username" name="username"/> <!-- la till name="username" för att testa /Vanja -->
+    <!--
+    <input type="text" placeholder="Username" th:field="*{userName}" th:errorclass="error"/>
+    <p th:if="${#fields.hasErrors('userName')}">Please enter your username</p>
+    -->
+    <br>
+    <br>
+    <input type="password" placeholder="password" name="password"/>
+    <!--
+    <input type="password" placeholder="Password" th:field="*{password}" th:errorclass="error"/>
+    <p th:if="${#fields.hasErrors('password')}">Please enter your password</p>
+    -->
+    <br>
+    <br>
+    <input type="submit" value="Logga in">
+    <br>
+    <br>
+</form>
+<form action="/createAccount" method="GET">
+    <input type="submit" value="Skapa konto"/>
+</form>
+
+
+<!--
+    la till för att testa /Vanja
+    -->
+<a href="/player">Create account</a>
+
+
+</body>
+</html>
