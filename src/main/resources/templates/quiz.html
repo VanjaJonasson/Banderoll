@@ -13,7 +13,19 @@
 
 <h1>QUIZ</h1>
 
-<a href="/flags">Play game</a>
+<p th:text=" ' Country: ' + ${country} "></p>
+
+<form action="/quiz" method="POST">
+    Pick one:
+    <select>
+        <option value="country">correct</option>
+        <option value="num1">answer2</option>
+        <option value="num2">answer3</option>
+    </select>
+    <input type="submit"/>
+</form>
+
+
 
 
 </body>

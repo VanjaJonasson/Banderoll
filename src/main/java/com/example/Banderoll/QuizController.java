@@ -4,9 +4,7 @@ package com.example.Banderoll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -16,9 +14,11 @@ import java.util.List;
 public class QuizController {
 
 
-   // @Autowired
-   // Country country;
+    @Autowired
+    Country country;
 
+    @Autowired
+    CountryRepository countries;
 
     @Autowired
     Player player;
@@ -68,25 +68,30 @@ public class QuizController {
     }
 
     @GetMapping("/quiz")
-    public String quiz(){
-
+    public String quiz() {
         return "quiz";
     }
 
-    @GetMapping("/flags")
-    public String flags(){
-
-        return "flags";
+    @PostMapping("/quiz")
+    public String quiz(Model model){
+        List<Country> list = countries.getCountries();
+        model.addAttribute("country", list.get(0).getCapital());
+        model.addAttribute("num1", list.get(1).getCapital());
+        model.addAttribute("num2", list.get(2).getCapital());
+        return "quiz";
     }
 
-    @PostMapping("/flags/{numq}")
-    public String flaggame(HttpSession session, Model model, @RequestParam int numq){
-        model.addAttribute("numq", numq);
+/*
+    @PostMapping("/quiz/{numq}")
+    public String game(@ModelAttribute Country country, Model model, HttpSession session, @PathVariable Integer numq){
+        List<Country> list = countries.getCountries();
+        model.addAttribute("countries", list);
 
-        return "flags";
+
+        return "redirect:/quiz";
     }
 
-
+ */
 
 
     }
