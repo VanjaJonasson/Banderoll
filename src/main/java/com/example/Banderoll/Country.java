@@ -2,33 +2,24 @@ package com.example.Banderoll;
 
 import org.springframework.stereotype.Service;
 
-@Service
+import lombok.Getter;
+import lombok.Setter;
+
 public class Country {
+    @Getter
+    @Setter
+    private String name;
+    @Getter
+    @Setter
+    private String capital;
+    @Getter
+    @Setter
+    private String flag;
 
-    public String name;
-    public String capital;
-
-    public Country(String name, String capital) {
+    public Country(String name, String capital, String flag) {
         this.name = name;
         this.capital = capital;
-    }
+        this.flag = flag;
 
-    public Country() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCapital() {
-        return capital;
-    }
-
-    public void setCapital(String capital) {
-        this.capital = capital;
     }
 }

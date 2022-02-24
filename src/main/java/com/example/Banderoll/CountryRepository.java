@@ -12,10 +12,7 @@ public class CountryRepository {
 
     public CountryRepository() {
         countries = new ArrayList<>();
-        countries.add(new Country("Sweden", "Stockholm"));
-        countries.add(new Country("Norway", "Oslo"));
-        countries.add(new Country("Denmark", "Copenhagen"));
-        countries.add(new Country("France", "Paris"));
+
     }
 
 
