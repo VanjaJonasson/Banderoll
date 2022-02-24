@@ -67,7 +67,12 @@ public class QuizController {
     }
 
     @GetMapping("/quiz")
-    public String quiz() {
+    public String quiz(Model model) {
+        Question q = new Question(1);
+        String s = q.getQuestion();
+        String[] answers = q.getAnswers();
+        model.addAttribute("question",s);
+        model.addAttribute("answers",answers);
         return "quiz";
     }
 
