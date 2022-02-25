@@ -80,7 +80,12 @@ public class QuizController {
 
 
     @GetMapping("/quiz")
-    public String quiz() {
+    public String quiz(Model model, @RequestParam(required=true) int choice) {
+
+        Question q = new Question(choice);
+        model.addAttribute("question", q);
+        model.addAttribute("choice", choice);
+
         return "quiz";
     }
 
