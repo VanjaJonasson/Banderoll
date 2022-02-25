@@ -14,8 +14,8 @@ import java.util.List;
 public class QuizController {
 
 
-    @Autowired
-    Country country;
+   /* @Autowired
+    Country country; */
 
     @Autowired
     CountryRepository countries;

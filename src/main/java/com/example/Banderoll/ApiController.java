@@ -39,7 +39,7 @@ public class ApiController {
                 countries[i] = listCountryNames.get(i).get("common").toString();
                 capitals[i] = listCapitalNames.get(i).get(0).toString();
                 flags[i] = listFlags.get(i).get("png").toString();
-                regions[i] = listRegions.get(i).get(0).toString();
+                //regions[i] = listRegions.get(i).get(0).toString();
             }
         }
     }

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.Getter;
 import lombok.Setter;
-
+@Service
 public class Country {
     @Getter
     @Setter
@@ -15,6 +15,9 @@ public class Country {
     @Getter
     @Setter
     private String flag;
+
+    public Country() {
+    }
 
     public Country(String name, String capital, String flag) {
         this.name = name;
