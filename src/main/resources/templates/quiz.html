@@ -34,35 +34,14 @@
 
 <form action="/quiz" method="POST">
 
-    <div class="form-check">
+    <div th:each="answer : ${question.answers}" class="form-check">
         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-        <label class="form-check-label" for="flexRadioDefault1"> Default radio </label>
+        <label class="form-check-label" for="flexRadioDefault1" th:value="${answer}" th:text="${answer}"></label>
+        <br>
     </div>
+
+
     <br>
-
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-        <label class="form-check-label" for="flexRadioDefault1"> Default radio </label>
-    </div>
-    <br>
-
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-        <label class="form-check-label" for="flexRadioDefault1"> Default radio </label>
-    </div>
-    <br>
-
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-        <label class="form-check-label" for="flexRadioDefault1"> Default radio </label>
-    </div>
-    <br>
-    <br>
-
-
     <button class="btn btn-primary" type="submit">Submit</button>
 
 
