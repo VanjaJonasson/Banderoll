@@ -69,11 +69,38 @@ public class QuizController {
         return "redirect:/";
     }
 
+    /*
     @GetMapping("/quiz")
     public String options() {
         return "quiz";
     }
 
+     */
+
+    //@ModelAttribute
+
+    //(@RequestParam(required=false, defaultValue = "World") String param1)
+
+
+    @PostMapping("/quiz/{choice}")
+    public String quiz(HttpSession session, Model model, @RequestBody(required=false) Question question,
+                       @PathVariable(required=false) int choice, @PathVariable String a) {
+        Question q = new Question(choice);
+        String s = q.getQuestion();
+        String[] answers = q.getAnswers();
+        model.addAttribute("question", s);
+        model.addAttribute("answers", answers);
+
+        if (!q.equals(null)) {
+            if (??.equals(q.getAnswers());
+        }
+        return "quiz";
+    }
+
+
+
+
+ /*
 
     @GetMapping("/capital")
     public String capitals(Model model) {
@@ -84,6 +111,8 @@ public class QuizController {
         model.addAttribute("answers", answers);
         return "capital";
     }
+
+
 
     @GetMapping("/country")
     public String country(Model model) {
@@ -105,16 +134,13 @@ public class QuizController {
         return "flag";
     }
 
+    //String givenanswer = null;
+    //session.setAttribute("givenanswer", givenanswer);
+
+  */
 
 
-    @PostMapping("/quiz")
-    public String postQuiz(@ModelAttribute Model model, Question question){
 
-
-
-
-        return "quiz";
-    }
 
 
 
