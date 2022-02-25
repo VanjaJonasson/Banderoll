@@ -76,6 +76,15 @@ public class QuizController {
     }
 
 
+    //ny
+
+
+    @GetMapping("/quiz")
+    public String quiz() {
+        return "quiz";
+    }
+
+
 
     //@ModelAttribute
 
@@ -87,9 +96,9 @@ public class QuizController {
 
  */
 
-    @PostMapping("/quiz/{choice}")
+    @PostMapping("/quiz")
     public String quiz(Model model, @RequestBody(required=false) Question question,
-                       @RequestParam(required=false) String playerAnswer, @PathVariable(required=true) int choice) {
+                       @RequestParam(required=false) String playerAnswer, @RequestParam(required=true) int choice) {
 
         if (!question.equals(null)) {
             if (question.getCorrectAnswer("playerAnswer")){
