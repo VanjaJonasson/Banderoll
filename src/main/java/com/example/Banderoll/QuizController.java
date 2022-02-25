@@ -102,8 +102,7 @@ public class QuizController {
  */
     //flexradiodefault playerAnswer-requestparam
     @PostMapping("/quiz")
-    public String quiz(Model model, @RequestBody(required=false) Question question,
-                       @RequestParam(required=false) String playerAnswer, @RequestParam(required=true) int choice) {
+    public String quiz(Model model, String playerAnswer, @RequestParam(required=true) int choice) {
 
         if (!question.equals(null)) {
             if (question.getCorrectAnswer("playerAnswer")){
