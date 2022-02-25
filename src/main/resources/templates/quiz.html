@@ -20,15 +20,16 @@
 <!-- if capitals -->
 <div th:if="${(choice == 2)}">
 <h1>What is the capital of</h1>
-<h2>Sweden</h2>
+<h2 th:text="${question.getQuestion}"></h2>
 </div>
 
 <!-- if Flags -->
 <div th:if="${(choice == 1)}">
 <h1>Which country does this flag belong to</h1>
 <br>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Flag_of_Sweden.svg/1280px-Flag_of_Sweden.svg.png" class="center">
+<img th:src="${question.getQuestion}" class="center">
 </div>
+
 
 
 <form action="/quiz" method="POST">
