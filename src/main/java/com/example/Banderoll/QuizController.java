@@ -80,7 +80,12 @@ public class QuizController {
 
 
     @GetMapping("/quiz")
-    public String quiz() {
+    public String quiz(Model model, @RequestParam(required=true) int choice) {
+
+        Question q = new Question(choice);
+        model.addAttribute("question", q);
+        model.addAttribute("choice", choice);
+
         return "quiz";
     }
 
@@ -95,7 +100,7 @@ public class QuizController {
 
 
  */
-
+    //flexradiodefault playerAnswer-requestparam
     @PostMapping("/quiz")
     public String quiz(Model model, @RequestBody(required=false) Question question,
                        @RequestParam(required=false) String playerAnswer, @RequestParam(required=true) int choice) {
