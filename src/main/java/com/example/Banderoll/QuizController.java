@@ -13,9 +13,11 @@ import java.util.List;
 @Controller
 public class QuizController {
 
+    @Autowired
+    Country country;
 
-   /* @Autowired
-    Country country; */
+    @Autowired
+    Question question;
 
     @Autowired
     CountryRepository countries;
@@ -40,12 +42,12 @@ public class QuizController {
             String uname = list.get(i).getUsername();
             String pass = list.get(i).getPassword();
             if (username.equals(uname) && password.equals(pass)) {
-                return "redirect:/quiz";
+                return "redirect:/home";
             }
         }
 
         if (username.equals("admin") && password.equals("123")) {
-            return "redirect:/quiz";
+            return "redirect:/home";
         }
 
         return "redirect:/";
@@ -67,19 +69,95 @@ public class QuizController {
         return "redirect:/";
     }
 
-    @GetMapping("/quiz")
-    public String quiz() {
+
+    @GetMapping("/home")
+    public String options() {
+        return "home";
+    }
+
+
+
+    //@ModelAttribute
+
+
+/*
+    public String quiz(HttpSession session, Model model, @RequestBody(required=false) Question question,
+                       @PathVariable(required=false) int choice, @PathVariable String a) {
+
+
+ */
+
+    @PostMapping("/quiz/{choice}")
+    public String quiz(Model model, @RequestBody(required=false) Question question,
+                       @RequestParam(required=false) String playerAnswer, @PathVariable(required=true) int choice) {
+
+        if (!question.equals(null)) {
+            if (question.getCorrectAnswer("playerAnswer")){
+
+            }
+        }
+
+        System.out.println(choice);
+        Question q = new Question(choice);
+        //String s = q.getQuestion();
+        //String[] answers = q.getAnswers();
+        model.addAttribute("question", q);
+        model.addAttribute("choice", choice);
+        //model.addAttribute("question", s);
+        //model.addAttribute("answers", answers);
+
+
+
+
         return "quiz";
     }
 
-    @PostMapping("/quiz")
-    public String quiz(Model model){
-        List<Country> list = countries.getCountries();
-        model.addAttribute("country", list.get(0).getCapital());
-        model.addAttribute("num1", list.get(1).getCapital());
-        model.addAttribute("num2", list.get(2).getCapital());
-        return "quiz";
+
+
+
+ /*
+
+    @GetMapping("/capital")
+    public String capitals(Model model) {
+        Question q = new Question(2);
+        String s = q.getQuestion();
+        String[] answers = q.getAnswers();
+        model.addAttribute("question", s);
+        model.addAttribute("answers", answers);
+        return "capital";
     }
+
+
+
+    @GetMapping("/country")
+    public String country(Model model) {
+        Question q = new Question(1);
+        String s = q.getQuestion();
+        String[] answers = q.getAnswers();
+        model.addAttribute("question", s);
+        model.addAttribute("answers", answers);
+        return "country";
+    }
+
+    @GetMapping("/flag")
+    public String flag(Model model) {
+        Question q = new Question(3);
+        String s = q.getQuestion();
+        String[] answers = q.getAnswers();
+        model.addAttribute("question", s);
+        model.addAttribute("answers", answers);
+        return "flag";
+    }
+
+    //String givenanswer = null;
+    //session.setAttribute("givenanswer", givenanswer);
+
+  */
+
+
+
+
+
 
 
 
