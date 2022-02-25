@@ -82,8 +82,10 @@ try {
         return question;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
+    public boolean getCorrectAnswer(String playeranswer) {
+        if (playeranswer == correctAnswer) {
+            return true;
+        } else return false;
     }
 
     private void randomizeAnswers() {
