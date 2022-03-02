@@ -11,28 +11,31 @@ import java.util.Random;
 public class Question {
 
     private String rightAnswer;
-
     private String[] answers = new String[4];
-
     String question;
-
     String correctAnswer;
+    int typeOfQuestion;
+    String[] questionCountries;
+    String[] questionFlags;
+    String[] questionCapitals;
+    int index;
+    private static ApiController apicontroller;
 
     public Question() {
     }
 
     public Question(int typeOfQuestion) {
 try {
-
-    ApiController apicontroller = new ApiController();
-    String[] questionCountries = apicontroller.getCountries();
-    String[] questionFlags = apicontroller.getFlags();
-    String[] questionCapitals = apicontroller.getCapitals();
+    this.typeOfQuestion = typeOfQuestion;
+    apicontroller = new ApiController();
+    questionCountries = apicontroller.getCountries();
+    questionFlags = apicontroller.getFlags();
+    questionCapitals = apicontroller.getCapitals();
 
 
     Random rand = new Random();
-    int randomInt = rand.nextInt(questionCountries.length);
-    Country country = new Country(questionCountries[randomInt], questionCapitals[randomInt], questionFlags[randomInt]);
+    index = rand.nextInt(questionCountries.length);
+    Country country = new Country(questionCountries[index], questionCapitals[index], questionFlags[index]);
     int rand1 = rand.nextInt(questionCountries.length);
     int rand2 = rand.nextInt(questionCountries.length);
     int rand3 = rand.nextInt(questionCountries.length);
@@ -62,8 +65,6 @@ try {
             correctAnswer = country.getFlag();
             break;
     }
-    System.out.println(randomInt);
-    arrayToString();
     randomizeAnswers();
 }catch (Exception e){
     e.printStackTrace();
@@ -82,11 +83,32 @@ try {
         return question;
     }
 
-    public boolean getCorrectAnswer(String playeranswer) {
-        if (playeranswer == correctAnswer) {
-            return true;
-        } else return false;
+    public int getIndex(){
+        return index;
     }
+
+    public static boolean isCorrectAnswer(int typeOfQuestion, int index, String playerAnswer) {
+
+        if (typeOfQuestion == 1) {
+            System.out.println(apicontroller.getCountries()[index]);
+            System.out.println(playerAnswer);
+            if (apicontroller.getCountries()[index].equals(playerAnswer)) {
+                return true;
+            }
+        }
+        else if (typeOfQuestion == 2) {
+            if (apicontroller.getCapitals()[index].equals(playerAnswer)) {
+                return true;
+            }
+        }
+        else if (typeOfQuestion == 3) {
+            if (apicontroller.getFlags()[index].equals(playerAnswer)) {
+                    return true;
+            }
+        }
+            return false;
+    }
+
 
     private void randomizeAnswers() {
         for (int i = 0; i < answers.length; i++) {

@@ -14,16 +14,7 @@ import java.util.List;
 public class QuizController {
 
     @Autowired
-    Country country;
-
-    @Autowired
-    Question question;
-
-    @Autowired
     CountryRepository countries;
-
-    @Autowired
-    Player player;
 
     @Autowired
     PlayerRepository players;
@@ -37,143 +28,78 @@ public class QuizController {
     public String login(HttpSession session, @RequestParam String username, @RequestParam String password) {
 
         List<Player> list = players.getPlayers();
-        System.out.println(list.get(0).getUsername());
+        System.out.println(list.get(0).getUserName());
+
         for (int i = 0; i < list.size(); i++) {
-            String uname = list.get(i).getUsername();
+            String uname = list.get(i).getUserName();
             String pass = list.get(i).getPassword();
             if (username.equals(uname) && password.equals(pass)) {
+                session.setAttribute("player",list.get(i));
                 return "redirect:/home";
             }
         }
-
         if (username.equals("admin") && password.equals("123")) {
             return "redirect:/home";
         }
-
         return "redirect:/";
-
     }
-
 
     @GetMapping("/player")
     public String player() {
         return "player";
     }
 
-
     @PostMapping("/player")
     public String createPlayer(HttpSession session, @RequestParam String username, @RequestParam String password){
         Player player = new Player(username, password);
         players.addPlayer(player);
-        System.out.println("player added: " + player.getUsername());
+        System.out.println("player added: " + player.getUserName());
+        session.setAttribute("player",player);
         return "redirect:/";
     }
 
-
     @GetMapping("/home")
     public String options() {
+
         return "home";
     }
 
-
-    //ny
-
-
     @GetMapping("/quiz")
-    public String quiz(Model model, @RequestParam(required=true) int choice) {
-
+    public String quiz(Model model,HttpSession session, @RequestParam int choice) {
+        model.addAttribute("player",(Player) session.getAttribute("player"));
         Question q = new Question(choice);
+        session.setAttribute("questionIndex",q.getIndex());
+        session.setAttribute("choice",choice);
         model.addAttribute("question", q);
-        model.addAttribute("choice", choice);
 
         return "quiz";
     }
 
-
-
-    //@ModelAttribute
-
-
-/*
-    public String quiz(HttpSession session, Model model, @RequestBody(required=false) Question question,
-                       @PathVariable(required=false) int choice, @PathVariable String a) {
-
-
- */
-    //flexradiodefault playerAnswer-requestparam
     @PostMapping("/quiz")
-    public String quiz(Model model, String playerAnswer, @RequestParam(required=true) int choice) {
+    public String quiz(HttpSession session, Model model, @RequestParam String playerAnswer) {
+            Player p = (Player) session.getAttribute("player");
+            model.addAttribute("player",p);
 
-        if (!question.equals(null)) {
-            if (question.getCorrectAnswer("playerAnswer")){
-
+            int choice = (int)session.getAttribute("choice");
+            int questionIndex = (int)session.getAttribute("questionIndex");
+            if (Question.isCorrectAnswer(choice,questionIndex,playerAnswer)){
+                System.out.println("Correct");
+                p.setPoint();
+                session.setAttribute("point", p.getPoint());
+                System.out.println(p.userName);
             }
-        }
+            else {
+                System.out.println("Wrong answer!");
+                if(!p.reduceAndCheckIfAlive()){
+                    System.out.println("Quit game!");
+                }
+            }
 
-        System.out.println(choice);
         Question q = new Question(choice);
-        //String s = q.getQuestion();
-        //String[] answers = q.getAnswers();
         model.addAttribute("question", q);
-        model.addAttribute("choice", choice);
-        //model.addAttribute("question", s);
-        //model.addAttribute("answers", answers);
-
-
-
-
+        session.setAttribute("questionIndex",q.getIndex());
         return "quiz";
     }
-
-
-
-
- /*
-
-    @GetMapping("/capital")
-    public String capitals(Model model) {
-        Question q = new Question(2);
-        String s = q.getQuestion();
-        String[] answers = q.getAnswers();
-        model.addAttribute("question", s);
-        model.addAttribute("answers", answers);
-        return "capital";
-    }
-
-
-
-    @GetMapping("/country")
-    public String country(Model model) {
-        Question q = new Question(1);
-        String s = q.getQuestion();
-        String[] answers = q.getAnswers();
-        model.addAttribute("question", s);
-        model.addAttribute("answers", answers);
-        return "country";
-    }
-
-    @GetMapping("/flag")
-    public String flag(Model model) {
-        Question q = new Question(3);
-        String s = q.getQuestion();
-        String[] answers = q.getAnswers();
-        model.addAttribute("question", s);
-        model.addAttribute("answers", answers);
-        return "flag";
-    }
-
-    //String givenanswer = null;
-    //session.setAttribute("givenanswer", givenanswer);
-
-  */
-
-
-
-
-
-
-
-
-    }
+}
 
 
