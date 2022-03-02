@@ -109,10 +109,12 @@ public class QuizController {
     public String quiz(HttpSession session, Model model, @RequestParam String playerAnswer) {
             Player p = (Player) session.getAttribute("player");
             model.addAttribute("player",p);
+            //Objekt av Questionklassen
 
             int choice = (int)session.getAttribute("choice");
             int questionIndex = (int)session.getAttribute("questionIndex");
-            if (Question.isCorrectAnswer(choice,questionIndex,playerAnswer)){
+            Question question = new Question(choice);
+            if (question.isCorrectAnswer(choice,questionIndex,playerAnswer)){
                 System.out.println("Correct");
                 p.setPoint();
                 session.setAttribute("point", p.getPoint());
