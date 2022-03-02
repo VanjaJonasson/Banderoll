@@ -15,36 +15,36 @@
 </head>
 <body>
 
-
+<div>
+    <p th:text="${player.getUserName}"></p>
+    <p th:text="${player.getPoint}"></p>
+    <p th:text="${player.getLives}"></p>
+</div>
 
 <!-- if capitals -->
-<div th:if="${(choice == 2)}">
+<div th:if="${(session.choice == 2)}">
 <h1>What is the capital of</h1>
 <h2 th:text="${question.getQuestion}"></h2>
 </div>
 
 <!-- if Flags -->
-<div th:if="${(choice == 1)}">
+<div th:if="${(session.choice == 1)}">
 <h1>Which country does this flag belong to</h1>
 <br>
 <img th:src="${question.getQuestion}" class="center">
 </div>
 
 
-<!--  <form action="/quiz" method="POST">       th:object="${question}"-->
-
-<form th:action="@{quiz(choice=${choice})}" method="POST">
+<form action="/quiz" method="POST">
 
     <div th:each="answer : ${question.answers}" class="form-check">
         <input class="form-check-input" th:value="${answer}" type="radio" name="playerAnswer" id="flexRadioDefault1"/>
         <label class="form-check-label" for="flexRadioDefault1"  th:text="${answer}"></label>
-
     </div>
 
     <br>
     <br>
     <br>
-
     <button class="btn btn-primary" type="submit">Submit</button>
 
 
