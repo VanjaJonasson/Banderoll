@@ -69,7 +69,9 @@
 
 <p th:text="'Logged in as: ' + ${session.username}"></p>
 
-
+<div th:if="${(points != null)}">
+<p th:text="'Points: ' + ${points}"></p>
+</div>
 
 
 
