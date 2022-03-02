@@ -9,6 +9,13 @@ public class PlayerRepository {
 
     ArrayList<Player> players = new ArrayList<>();
 
+
+
+    public PlayerRepository(ArrayList<Player> players) {
+        this.players = players;
+        addPlayer(new Player("admin", "123"));
+    }
+
     public void addPlayer(Player player) {
         players.add(player);
 
