@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +26,19 @@ public class QuizController {
         return "login";
     }
 
+
     @PostMapping("/login")
     public String login(HttpSession session, @RequestParam String username, @RequestParam String password) {
 
         List<Player> list = players.getPlayers();
-        System.out.println(list.get(0).getUserName());
+
+
+        System.out.println(list.get(0).getUsername());
 
         for (int i = 0; i < list.size(); i++) {
             String uname = list.get(i).getUserName();
             String pass = list.get(i).getPassword();
+
             if (username.equals(uname) && password.equals(pass)) {
                 session.setAttribute("player",list.get(i));
                 return "redirect:/home";
@@ -42,6 +48,21 @@ public class QuizController {
             return "redirect:/home";
         }
         return "redirect:/";
+
+            
+
+      
+
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session, HttpServletResponse res){ //ber om responsobjekt
+        session.invalidate();
+        Cookie cookie = new Cookie("JSESSIONID", ""); //städa bort cookien med värde ingenting ""
+        cookie.setMaxAge(0);//cookien får leva maximalt 0 tidsenheter
+        res.addCookie(cookie);
+        return "login";
+
     }
 
     @GetMapping("/player")
@@ -59,9 +80,18 @@ public class QuizController {
     }
 
     @GetMapping("/home")
+
     public String options() {
 
         return "home";
+
+    public String options(HttpSession session) {
+        String username = (String)session.getAttribute("username");
+        if (username != null) { //om nåt är satt betyder det att en inloggning har lyckats
+            return "home";
+        }
+        return "redirect:/";
+
     }
 
     @GetMapping("/quiz")
