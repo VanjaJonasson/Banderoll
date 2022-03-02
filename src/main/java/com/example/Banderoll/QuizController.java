@@ -33,7 +33,7 @@ public class QuizController {
         List<Player> list = players.getPlayers();
 
 
-        System.out.println(list.get(0).getUsername());
+        System.out.println(list.get(0).getUserName());
 
         for (int i = 0; i < list.size(); i++) {
             String uname = list.get(i).getUserName();
@@ -83,7 +83,7 @@ public class QuizController {
 
     public String options() {
 
-        return "home";
+        return "home";}
 
     public String options(HttpSession session) {
         String username = (String)session.getAttribute("username");
@@ -116,7 +116,7 @@ public class QuizController {
                 System.out.println("Correct");
                 p.setPoint();
                 session.setAttribute("point", p.getPoint());
-                System.out.println(p.userName);
+
             }
             else {
                 System.out.println("Wrong answer!");

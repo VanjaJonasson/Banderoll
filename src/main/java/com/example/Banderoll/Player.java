@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class Player {
 
-    public String username;
+    public String userName;
     public String password;
     private int currentPoint;
     private int maxPoints; // get points from database
