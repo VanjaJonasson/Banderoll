@@ -8,7 +8,7 @@ public class BanderollApplication {
 
 	public static void main(String[] args)throws Exception {
 		SpringApplication.run(BanderollApplication.class, args);
-		new ApiController();
+		//new ApiController();
 		System.out.println("hej");
 	}
 

@@ -3,8 +3,13 @@ package com.example.Banderoll;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
+import static java.lang.Long.getLong;
+@Service
 public class ApiController {
     //Get the CountryAPI
     private RequestSpecification httpRequest;
@@ -18,7 +23,11 @@ public class ApiController {
     String[] flags;
     String[] regions;
 
-    public ApiController() throws Exception {
+    @Autowired
+    CountryRepository repository;
+
+    //Start a method to get api, instead of api call in constructor
+    public void innit() throws Exception {
 
         RestAssured.baseURI = "https://restcountries.com/v3.1";
         httpRequest = RestAssured.given();
@@ -34,16 +43,26 @@ public class ApiController {
         flags = new String[listCountryNames.size()];
         regions = new String[listRegions.size()];
 
+
+        List<Country> countries = new ArrayList<>();
         for (int i=0; i<listCountryNames.size();i++) {
-            if(listCapitalNames.get(i)!=null) {
-                countries[i] = listCountryNames.get(i).get("common").toString();
+            if(listCountryNames.get(i)!=null && listCapitalNames.get(i)!=null && listFlags.get(i)!=null) {
+                Country country = new Country();
+                country.setName(listCountryNames.get(i).get("common").toString());
+                country.setCapital(listCapitalNames.get(i).get(0).toString());
+                country.setFlag(listFlags.get(i).get("png").toString());
+                countries.add(country);
+
+                /*countries[i] = listCountryNames.get(i).get("common").toString();
                 capitals[i] = listCapitalNames.get(i).get(0).toString();
                 flags[i] = listFlags.get(i).get("png").toString();
-                //regions[i] = listRegions.get(i).get(0).toString();
+                //regions[i] = listRegions.get(i).get(0).toString();*/
             }
         }
+        //JPA spara all country-object
+        repository.saveAll(countries);
     }
-    //Getters
+    /*Getters
     public String[] getCountries(){
         return countries;
     }
@@ -53,5 +72,5 @@ public class ApiController {
     public String[] getFlags(){
         return flags;
     }
-    public String[] getRegions() { return regions; }
+    public String[] getRegions() { return regions; }*/
 }

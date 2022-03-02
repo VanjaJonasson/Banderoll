@@ -1,11 +1,14 @@
 package com.example.Banderoll;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class Question {
@@ -15,11 +18,15 @@ public class Question {
     String question;
     String correctAnswer;
     int typeOfQuestion;
-    String[] questionCountries;
-    String[] questionFlags;
-    String[] questionCapitals;
+    //String[] questionCountries;
+    //String[] questionFlags;
+    //String[] questionCapitals;
     int index;
-    private static ApiController apicontroller;
+    //Autowired ApiController
+    //@Autowired
+    //private ApiController apicontroller;
+    //@Autowired
+    //CountryRepository repository;
 
     public Question() {
     }
@@ -27,39 +34,42 @@ public class Question {
     public Question(int typeOfQuestion) {
 try {
     this.typeOfQuestion = typeOfQuestion;
-    apicontroller = new ApiController();
-    questionCountries = apicontroller.getCountries();
-    questionFlags = apicontroller.getFlags();
-    questionCapitals = apicontroller.getCapitals();
+    //apicontroller = new ApiController();
+    assert repository != null;
+    Country country = repository.findById(10L).get();
 
 
-    Random rand = new Random();
-    index = rand.nextInt(questionCountries.length);
-    Country country = new Country(questionCountries[index], questionCapitals[index], questionFlags[index]);
-    int rand1 = rand.nextInt(questionCountries.length);
-    int rand2 = rand.nextInt(questionCountries.length);
-    int rand3 = rand.nextInt(questionCountries.length);
+   // Random rand = new Random();
+    long counter = repository.count();
+
+    //index = rand.nextInt(questionCountries.length);
+    //ThreadLocalRandom.current().nextInt(1,250);
+    //Country country = new Country(questionCountries[index], questionCapitals[index], questionFlags[index]);
+    Country rand1 = repository.findById((long) ThreadLocalRandom.current().nextInt(1, (int) counter)).get();
+    Country rand2 = repository.findById((long) ThreadLocalRandom.current().nextInt(1, (int) counter)).get();
+    Country rand3 = repository.findById((long) ThreadLocalRandom.current().nextInt(1, (int) counter)).get();
+
     switch (typeOfQuestion) {
         case 1:
-            answers[0] = questionCountries[rand1];
-            answers[1] = questionCountries[rand2];
-            answers[2] = questionCountries[rand3];
+            answers[0] = rand1.getName();
+            answers[1] = rand2.getName();
+            answers[2] = rand3.getName();
             answers[3] = country.getName();
             question = country.getFlag();
             correctAnswer = country.getName();
             break;
         case 2:
-            answers[0] = questionCapitals[rand1];
-            answers[1] = questionCapitals[rand2];
-            answers[2] = questionCapitals[rand3];
+            answers[0] = rand1.getCapital();
+            answers[1] = rand2.getCapital();
+            answers[2] = rand3.getCapital();
             answers[3] = country.getCapital();
             question = country.getName();
             correctAnswer = country.getCapital();
             break;
         case 3:
-            answers[0] = questionFlags[rand1];
-            answers[1] = questionFlags[rand2];
-            answers[2] = questionFlags[rand3];
+            answers[0] = rand1.getFlag();
+            answers[1] = rand2.getFlag();
+            answers[2] = rand3.getFlag();
             answers[3] = country.getFlag();
             question = country.getName();
             correctAnswer = country.getFlag();
@@ -87,22 +97,20 @@ try {
         return index;
     }
 
-    public static boolean isCorrectAnswer(int typeOfQuestion, int index, String playerAnswer) {
+    public boolean isCorrectAnswer(int typeOfQuestion, int index, String playerAnswer) {
 
         if (typeOfQuestion == 1) {
-            System.out.println(apicontroller.getCountries()[index]);
-            System.out.println(playerAnswer);
-            if (apicontroller.getCountries()[index].equals(playerAnswer)) {
+            if (repository.findById((long) index).get().getName().equals(playerAnswer)) {
                 return true;
             }
         }
         else if (typeOfQuestion == 2) {
-            if (apicontroller.getCapitals()[index].equals(playerAnswer)) {
+            if (repository.findById((long)index).get().getCapital().equals(playerAnswer)) {
                 return true;
             }
         }
         else if (typeOfQuestion == 3) {
-            if (apicontroller.getFlags()[index].equals(playerAnswer)) {
+            if (repository.findById((long)index).get().getFlag().equals(playerAnswer)) {
                     return true;
             }
         }
