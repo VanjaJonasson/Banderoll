@@ -30,29 +30,13 @@ public class QuizController {
     @PostMapping("/login")
     public String login(HttpSession session, @RequestParam String username, @RequestParam String password) {
 
-        List<Player> list = players.getPlayers();
+        Player player = players.findByUserNameAndPassword(username,password);
 
-
-        System.out.println(list.get(0).getUserName());
-
-        for (int i = 0; i < list.size(); i++) {
-            String uname = list.get(i).getUserName();
-            String pass = list.get(i).getPassword();
-
-            if (username.equals(uname) && password.equals(pass)) {
-                session.setAttribute("player",list.get(i));
-                return "redirect:/home";
-            }
-        }
-        if (username.equals("admin") && password.equals("123")) {
+        if(player != null){
+            session.setAttribute("player",player);
             return "redirect:/home";
         }
-        return "redirect:/";
-
-            
-
-      
-
+        return "login";
     }
 
     @GetMapping("/logout")
@@ -73,7 +57,7 @@ public class QuizController {
     @PostMapping("/player")
     public String createPlayer(HttpSession session, @RequestParam String username, @RequestParam String password){
         Player player = new Player(username, password);
-        players.addPlayer(player);
+        players.save(player);
         System.out.println("player added: " + player.getUserName());
         session.setAttribute("player",player);
         return "redirect:/";
