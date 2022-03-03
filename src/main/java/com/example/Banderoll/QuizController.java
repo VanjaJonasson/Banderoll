@@ -81,6 +81,7 @@ public class QuizController {
                 Player p = (Player)session.getAttribute("player");
                 if(!p.reduceAndCheckIfAlive()){
                     System.out.println("Quit game!");
+                    return "finished";
                 }
             }
         }
@@ -114,6 +115,7 @@ public class QuizController {
                 System.out.println("Wrong answer!");
                 if (!p.reduceAndCheckIfAlive()) {
                     System.out.println("Quit game!");
+                    return "finished";
                 }
             }
 
@@ -121,6 +123,15 @@ public class QuizController {
         model.addAttribute("question", q);
         p.setLatestAnswer(q.getRightAnswer());
         return "quiz";
+    }
+    @GetMapping("/finished")
+    public String finished(Model model,HttpSession session) {
+        Player p = (Player)session.getAttribute("player");
+        model.addAttribute("player",p);
+        p.getPoint();
+        p.getLives();
+
+        return "finished";
     }
 }
 
