@@ -23,7 +23,9 @@ public class QuestionService {
         Country[] countries = new Country[4];
         try {
 
+            //ibland får vi 0 i svar?
             long counter = repository.count();
+            System.out.println("Counter: "+counter);
 
             Country rand1 = repository.findById((long) ThreadLocalRandom.current().nextInt(1, (int) counter)).get();
             Country rand2 = repository.findById((long) ThreadLocalRandom.current().nextInt(1, (int) counter)).get();
