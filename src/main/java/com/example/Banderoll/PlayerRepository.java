@@ -1,12 +1,16 @@
 package com.example.Banderoll;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-@Service
-public class PlayerRepository {
 
+public interface PlayerRepository extends CrudRepository<Player,Long> {
+    Player findByUserNameAndPassword(String userName,String password);
+}
+
+/*
     ArrayList<Player> players = new ArrayList<>();
 
 
@@ -27,3 +31,4 @@ public class PlayerRepository {
         return players;
     }
 }
+*/

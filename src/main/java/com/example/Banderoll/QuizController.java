@@ -16,10 +16,10 @@ import java.util.List;
 public class QuizController {
 
     @Autowired
-    CountryRepository countries;
+    PlayerRepository players;
 
     @Autowired
-    PlayerRepository players;
+    QuestionService qs;
 
     @GetMapping("/")
     public String start() {
@@ -30,29 +30,13 @@ public class QuizController {
     @PostMapping("/login")
     public String login(HttpSession session, @RequestParam String username, @RequestParam String password) {
 
-        List<Player> list = players.getPlayers();
+        Player player = players.findByUserNameAndPassword(username,password);
 
-
-        System.out.println(list.get(0).getUserName());
-
-        for (int i = 0; i < list.size(); i++) {
-            String uname = list.get(i).getUserName();
-            String pass = list.get(i).getPassword();
-
-            if (username.equals(uname) && password.equals(pass)) {
-                session.setAttribute("player",list.get(i));
-                return "redirect:/home";
-            }
-        }
-        if (username.equals("admin") && password.equals("123")) {
+        if(player != null){
+            session.setAttribute("player",player);
             return "redirect:/home";
         }
-        return "redirect:/";
-
-            
-
-      
-
+        return "login";
     }
 
     @GetMapping("/logout")
@@ -62,7 +46,6 @@ public class QuizController {
         cookie.setMaxAge(0);//cookien får leva maximalt 0 tidsenheter
         res.addCookie(cookie);
         return "login";
-
     }
 
     @GetMapping("/player")
@@ -73,17 +56,17 @@ public class QuizController {
     @PostMapping("/player")
     public String createPlayer(HttpSession session, @RequestParam String username, @RequestParam String password){
         Player player = new Player(username, password);
-        players.addPlayer(player);
+        players.save(player);
         System.out.println("player added: " + player.getUserName());
         session.setAttribute("player",player);
         return "redirect:/";
     }
 
     @GetMapping("/home")
-
     public String options() {
 
-        return "home";}
+        return "home";
+    }
 
     public String options(HttpSession session) {
         String username = (String)session.getAttribute("username");
@@ -91,14 +74,16 @@ public class QuizController {
             return "home";
         }
         return "redirect:/";
-
     }
 
     @GetMapping("/quiz")
     public String quiz(Model model,HttpSession session, @RequestParam int choice) {
-        model.addAttribute("player",(Player) session.getAttribute("player"));
-        Question q = new Question(choice);
-        session.setAttribute("questionIndex",q.getIndex());
+        Question q = qs.getQuestion(choice);
+
+        Player p = (Player)session.getAttribute("player");
+        p.setLatestAnswer(q.getRightAnswer());
+        model.addAttribute("player",p);
+
         session.setAttribute("choice",choice);
         model.addAttribute("question", q);
 
@@ -111,8 +96,8 @@ public class QuizController {
             model.addAttribute("player",p);
 
             int choice = (int)session.getAttribute("choice");
-            int questionIndex = (int)session.getAttribute("questionIndex");
-            if (Question.isCorrectAnswer(choice,questionIndex,playerAnswer)){
+
+           if (p.getLatestAnswer().equals(playerAnswer)){
                 System.out.println("Correct");
                 p.setPoint();
                 session.setAttribute("point", p.getPoint());
@@ -125,9 +110,10 @@ public class QuizController {
                 }
             }
 
-        Question q = new Question(choice);
+        Question q = qs.getQuestion(choice);
         model.addAttribute("question", q);
-        session.setAttribute("questionIndex",q.getIndex());
+        p.setLatestAnswer(q.getRightAnswer());
+
         return "quiz";
     }
 }

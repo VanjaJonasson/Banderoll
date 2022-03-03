@@ -1,15 +1,23 @@
 package com.example.Banderoll;
 
-import org.springframework.stereotype.Service;
+import javax.persistence.*;
 
-@Service
+@Entity
 public class Player {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name="username")
     public String userName;
     public String password;
+    @Column(name="currentpoint")
     private int currentPoint;
+    @Column(name="maxpoints")
     private int maxPoints; // get points from database
     private int lives = 3;
+
+    @Transient
+    private String latestAnswer;
 
     public Player() {
     }
@@ -61,4 +69,12 @@ public class Player {
         return true;
 
     }
+
+    public void setLatestAnswer(String answer){
+        latestAnswer = answer;
+    }
+    public String getLatestAnswer(){
+        return latestAnswer;
+    }
+
 }
