@@ -96,25 +96,40 @@ public class QuizController {
             model.addAttribute("player",p);
 
             int choice = (int)session.getAttribute("choice");
-
-           if (p.getLatestAnswer().equals(playerAnswer)){
+            //p.getQuestionsAnswered if less than 20 questions continue
+           if (p.getLatestAnswer().equals(playerAnswer) && p.getQuestionsAnswered() > 20){
                 System.out.println("Correct");
                 p.setPoint();
                 session.setAttribute("point", p.getPoint());
-
             }
+           //p.getQuestionsAnswered but questions answered is 20 break
+           else if(p.getLatestAnswer().equals(playerAnswer) && p.getQuestionsAnswered()<=20){
+               System.out.println("Game finished");
+           }
             else {
                 System.out.println("Wrong answer!");
+                //
                 if(!p.reduceAndCheckIfAlive()){
                     System.out.println("Quit game!");
+                    //If no more lifes go to finished-page
+                    return "finished";
                 }
             }
 
         Question q = qs.getQuestion(choice);
         model.addAttribute("question", q);
         p.setLatestAnswer(q.getRightAnswer());
-
         return "quiz";
+    }
+    //GameOver & LeaderBoard
+    @GetMapping("/finished")
+    public String finished(Model model,HttpSession session) {
+        Player p = (Player)session.getAttribute("player");
+        model.addAttribute("player",p);
+        p.getPoint();
+        p.getLives();
+
+        return "finished";
     }
 }
 
