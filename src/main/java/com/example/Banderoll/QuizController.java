@@ -105,7 +105,7 @@ public class QuizController {
             System.out.println("Not Answered!");
             p.reduceAndCheckIfAlive();
 
-            if (p.getLatestAnswer().equals(playerAnswer)) {
+            if (p.getLatestAnswer().equals(playerAnswer) && p.getQuestionsAnswered()<20) {
                 System.out.println("Correct");
                 p.setPoint();
                 session.setAttribute("point", p.getPoint());
