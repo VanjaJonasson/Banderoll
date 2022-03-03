@@ -6,12 +6,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ApiRunner implements CommandLineRunner {
+
         @Autowired
         ApiController controller;
+
+
         @Override
         public void run(String... args) throws Exception {
             //Körs en gång vid uppstart
-            // todo anropa metod för initiering av databas här!
             controller.innit();
         }
     }

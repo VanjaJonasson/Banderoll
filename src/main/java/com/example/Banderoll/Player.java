@@ -16,6 +16,9 @@ public class Player {
     private int maxPoints; // get points from database
     private int lives = 3;
 
+    @Transient
+    private String latestAnswer;
+
     public Player() {
     }
 
@@ -66,4 +69,12 @@ public class Player {
         return true;
 
     }
+
+    public void setLatestAnswer(String answer){
+        latestAnswer = answer;
+    }
+    public String getLatestAnswer(){
+        return latestAnswer;
+    }
+
 }
