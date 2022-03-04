@@ -71,7 +71,7 @@ public class Player {
     }
 
     public boolean reduceAndCheckIfAlive(){
-        if(lives<1){
+        if(lives<2){
             return false;
         }else {
             lives--;
