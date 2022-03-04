@@ -85,11 +85,11 @@ public class Player {
         return questionsAnswered;
     }
     public void setQuestionsAnswered(int questionsAnswered) {
-        this.questionsAnswered = questionsAnswered;
+        this.questionsAnswered = questionsAnswered++;
     }
 
     public boolean reduceAndCheckIfAlive(){
-        if(lives<1){
+        if(lives<2){
             return false;
         }
         lives--;
