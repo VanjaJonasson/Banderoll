@@ -1,6 +1,8 @@
 package com.example.Banderoll;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Player {
@@ -20,6 +22,8 @@ public class Player {
     private String latestAnswer;
     @Transient
     private int questionsAnswered;
+    @Transient
+    private List<String> wrongAnswers = new ArrayList<>();
 
     public Player() {
     }
@@ -29,6 +33,20 @@ public class Player {
         this.password = password;
         currentPoint = 0;
 
+    }
+
+    public void clearWrongAnswers() {
+        wrongAnswers.clear();
+    }
+
+    public void saveWrongAnswers(String w) {
+        wrongAnswers.add(w);
+        System.out.println(wrongAnswers.size());
+        System.out.println(w);
+    }
+
+    public List getwrongAnswers()   {
+        return wrongAnswers;
     }
 
     public void setUsername(String userName)  {
@@ -77,6 +95,14 @@ public class Player {
         lives--;
         return true;
 
+    }
+
+    public void setCurrentPoint(int currentPoint) {
+        this.currentPoint = currentPoint;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     public void setLatestAnswer(String answer){

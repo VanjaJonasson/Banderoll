@@ -63,7 +63,12 @@ public class QuizController {
     }
 
     @GetMapping("/home")
-    public String options() {
+    public String options(HttpSession session) {
+        Player p = (Player)session.getAttribute("player");
+        p.setCurrentPoint(0);
+        p.setLives(3);
+        p.clearWrongAnswers();
+
 
         return "home";
     }
@@ -103,9 +108,6 @@ public class QuizController {
         model.addAttribute("player",p);
         int choice = (int) session.getAttribute("choice");
 
-            System.out.println("Not Answered!");
-            p.reduceAndCheckIfAlive();
-
             if (p.getLatestAnswer().equals(playerAnswer)) {
                 System.out.println("Correct");
                 p.setPoint();
@@ -113,8 +115,13 @@ public class QuizController {
 
             } else {
                 System.out.println("Wrong answer!");
+                StringBuilder str = new StringBuilder(300);
+                str.append("The correct answer was: " + p.getLatestAnswer() + ", ");
+                str.append("you answered: " + playerAnswer);
+                p.saveWrongAnswers(String.valueOf(str));
                 if (!p.reduceAndCheckIfAlive()) {
                     System.out.println("Quit game!");
+                    model.addAttribute("wrongAnswers", p.getwrongAnswers());
                     return "finished";
                 }
             }
@@ -130,6 +137,7 @@ public class QuizController {
         model.addAttribute("player",p);
         p.getPoint();
         p.getLives();
+
 
         return "finished";
     }
