@@ -21,15 +21,14 @@
                 <h1><img src="https://i.postimg.cc/qRZTjHWz/banderolepng.png" width="200"/></h1>
             </div>
             <div class="intro-content-wrapper">
-                <h1 class="intro-title">Game over!</h1>
+                <br>
+                <h1 class="intro-title">Game over! Your score was: </h1><h1 th:text="${player.getCurrentPoint}"></h1>
+                <br>
                 <br>
                 <p class="intro-text">Here you can see the answers you got wrong,</p>
-                <table>
-                <tr th:each="answer : ${wrongAnswers}">
-                    <td class="answers" th:text="${answer}"></td>
-                    <br>
-                </tr>
-                </table>
+                <br>
+                <p class="answers" th:each="answer : ${wrongAnswers}" th:text="${answer}">blablabla</p>
+                <br>
                 <br>
                 <p class="intro-text"></p>Play again and see if you can improve!</p>
                 <br>

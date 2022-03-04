@@ -116,8 +116,8 @@ public class QuizController {
             } else {
                 System.out.println("Wrong answer!");
                 StringBuilder str = new StringBuilder(300);
-                str.append("The correct answer was: " + p.getLatestAnswer() + ", ");
-                str.append("you answered: " + playerAnswer);
+                str.append("The correct answer was: " + p.getLatestAnswer());
+                str.append(". You answered: " + playerAnswer);
                 p.saveWrongAnswers(String.valueOf(str));
                 if (!p.reduceAndCheckIfAlive()) {
                     System.out.println("Quit game!");
