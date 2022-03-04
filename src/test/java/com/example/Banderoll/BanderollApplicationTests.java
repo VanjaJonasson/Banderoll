@@ -116,6 +116,50 @@ class BanderollApplicationTests {
 		// Om man ger qs choice "2" betyder det att spelaren väljer att bli quizad på flaggor.
 	}
 
+	@Autowired
+	QuestionService qs;
+	@Test
+	public void testQuestionServiceCapitalsRightAnswer() throws Exception {
+		Question q = qs.getQuestion(2);
+		String result = q.getRightAnswer();
+		String[] resultArray = q.getAnswers();
+		String result2 = resultArray[0];
+		System.out.println(result);
+		Assert.assertEquals(true, result2.equals(result));
+		// Om man ger qs choice "2" betyder det att spelaren väljer att bli quizad på huvudstäder.
+	}
+
+	@Test
+	public void testQuestionServiceCapitalsWrongAnswer() throws Exception {
+		Question q = qs.getQuestion(2);
+		String result = q.getRightAnswer();
+		String[] resultArray = q.getAnswers();
+		String result2 = resultArray[1];
+		System.out.println(result);
+		Assert.assertEquals(false, result2.equals(result));
+		// Om man ger qs choice "2" betyder det att spelaren väljer att bli quizad på huvudstäder.
+	}
+
+	@Test
+	public void testQuestionServiceFlags() throws Exception {
+		Question q = qs.getQuestion(3);
+		String result = q.getRightAnswer();
+		String[] resultArray = q.getAnswers();
+		String result2 = resultArray[0];
+		System.out.println(result);
+		Assert.assertEquals(true, result2.equals(result));
+		// Om man ger qs choice "2" betyder det att spelaren väljer att bli quizad på flaggor.
+	}
+
+	@Autowired
+	CountryRepository countryRepository;
+	@Test
+	public void testCapitalRepository() throws Exception {
+
+
+
+	}
+
 
 
 }
