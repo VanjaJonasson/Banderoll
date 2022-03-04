@@ -1,64 +1,94 @@
 body {
-    background-image: url(https://i.postimg.cc/J4vWQX03/quizbg.jpg);
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      padding: 75px 95px;
-      min-height: 100vh;
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      flex-direction: column;
-      text-align: center;
+  background-image: url(https://i.postimg.cc/J4vWQX03/quizbg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 75px 95px;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    text-align: center;
 
 
-  }
+}
 
-  .form-check   {
-    align-content: center;
-    display: inline-block;
-    font-weight: 600;
-    font-size: large;
-    padding-bottom: 10px;
-
-  }
-
-  .custom-select    {
+.form-check   {
   align-content: center;
   display: inline-block;
-  width: 300px;
-  }
+  font-weight: 600;
+  font-size: large;
+  padding-bottom: 10px;
+
+}
+
+.custom-select    {
+align-content: center;
+display: inline-block;
+width: 300px;
+}
 
 
-  .form {
-      align-content: center;
-      display: inline-block;
-      width: 300px;
+.form {
+    align-content: center;
+    display: inline-block;
+    width: 300px;
 
 
-  }
+}
 
-  .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  width: 250px;
-  padding-bottom: 60px;
+.center {
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 50%;
+width: 300px;
+padding-bottom: 5px;
 
 
-  }
+}
 
-  h1 {
-    padding-top: 130px;
-    padding-bottom: 5px;
-    font-size: 30px;
-  }
+h1 {
+  padding-top: 30px;
+  padding-bottom: 2px;
+  font-size: 30px;
+}
 
-  h2 {
-    text-transform: uppercase;
-    font-size: 100px;
-    padding-bottom: 60px;
-  }
+h2 {
+  text-transform: uppercase;
+  font-size: 100px;
+  padding-top: 20px;
+  padding-bottom: 0px;
+}
+
+.username {
+  padding-top: 0px;
+  padding-bottom: 2px;
+  font-size: 20px;
+  text-align: right;
+
+}
+
+.points {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.lives {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+
+}
+
+#backbutton {
+  position: absolute;
+  right: 100px;
+
+
+}
+
 

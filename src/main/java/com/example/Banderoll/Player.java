@@ -18,6 +18,8 @@ public class Player {
 
     @Transient
     private String latestAnswer;
+    @Transient
+    private int questionsAnswered;
 
     public Player() {
     }
@@ -61,8 +63,15 @@ public class Player {
         return currentPoint;
     }
 
+    public int getQuestionsAnswered() {
+        return questionsAnswered;
+    }
+    public void setQuestionsAnswered(int questionsAnswered) {
+        this.questionsAnswered = questionsAnswered;
+    }
+
     public boolean reduceAndCheckIfAlive(){
-        if(lives<0){
+        if(lives<1){
             return false;
         }
         lives--;
