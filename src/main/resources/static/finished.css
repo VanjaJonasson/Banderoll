@@ -30,15 +30,6 @@ body {
   width: 300px;
   }
 
-
-  .form {
-      align-content: center;
-      display: inline-block;
-      width: 300px;
-
-
-  }
-
   .center {
   display: block;
   margin-left: auto;
@@ -54,6 +45,7 @@ body {
     padding-top: 30px;
     padding-bottom: 2px;
     font-size: 30px;
+    display: inline;
   }
 
   h2 {
@@ -63,45 +55,18 @@ body {
     padding-bottom: 0px;
   }
 
-  .username {
-    padding-top: 0px;
-    padding-bottom: 2px;
-    font-size: 20px;
-    text-align: right;
 
-  }
-
-  .points {
-    font-size: 20px;
-    text-align: center;
+  .answers {
+    align-content: center;
+    display: inline-block;
     font-weight: 600;
-  }
+    font-size: large;
+    padding-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 5px;
 
-  .lives {
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
-
-  }
-
-  #counter {
-      font-size: 20px;
-      font-weight: 600;
-      text-align: center;
-      color: rgb(207, 7, 7);
-  }
-
-  #backbutton {
-    position: absolute;
-    right: 100px;
-
-
-  }
-
-  #answers {
-    font-size: 20px;
-    font-weight: 600;
-    text-align; center;
   }
 
 

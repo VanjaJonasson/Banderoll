@@ -105,6 +105,10 @@ public class Player {
         this.lives = lives;
     }
 
+    public int getCurrentPoint() {
+        return currentPoint;
+    }
+
     public void setLatestAnswer(String answer){
         latestAnswer = answer;
     }
