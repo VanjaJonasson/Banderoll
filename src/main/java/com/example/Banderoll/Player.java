@@ -66,17 +66,17 @@ public class Player {
     public int getQuestionsAnswered() {
         return questionsAnswered;
     }
-    public void setQuestionsAnswered(int questionsAnswered) {
-        this.questionsAnswered = questionsAnswered;
+    public void setQuestionsAnswered() {
+        this.questionsAnswered = questionsAnswered++;
     }
 
     public boolean reduceAndCheckIfAlive(){
         if(lives<1){
             return false;
+        }else {
+            lives--;
+            return true;
         }
-        lives--;
-        return true;
-
     }
 
     public void setLatestAnswer(String answer){

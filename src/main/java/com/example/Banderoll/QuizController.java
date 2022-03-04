@@ -102,22 +102,26 @@ public class QuizController {
         Player p = (Player) session.getAttribute("player");
         model.addAttribute("player",p);
         int choice = (int) session.getAttribute("choice");
-
-            System.out.println("Not Answered!");
-            p.reduceAndCheckIfAlive();
-
-            if (p.getLatestAnswer().equals(playerAnswer)) {
+            if (p.getLatestAnswer().equals(playerAnswer) && p.getQuestionsAnswered() < 20) {
                 System.out.println("Correct");
                 p.setPoint();
+                p.setQuestionsAnswered();
                 session.setAttribute("point", p.getPoint());
-
-            } else {
-                System.out.println("Wrong answer!");
-                if (!p.reduceAndCheckIfAlive()) {
-                    System.out.println("Quit game!");
+            } else if(p.getLatestAnswer().equals(playerAnswer) && p.getQuestionsAnswered() == 20){
+                    System.out.println("Correct, you won!");
+                    p.setPoint();
+                    session.setAttribute("point", p.getPoint());
                     return "finished";
-                }
+            }else if (!p.getLatestAnswer().equals(playerAnswer) && p.getQuestionsAnswered() < 20){
+                p.setQuestionsAnswered();
+                session.setAttribute("point", p.getPoint());
+                System.out.println("Wrong answer");
             }
+            if (!p.reduceAndCheckIfAlive()) {
+                    System.out.println("GAME OVER");
+                    return "finished";
+            }
+
 
         Question q = qs.getQuestion(choice);
         model.addAttribute("question", q);
