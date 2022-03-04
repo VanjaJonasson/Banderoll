@@ -1,6 +1,6 @@
 // En timer som räknar ner. Appliceras på <p id="counter> i quiz.html
 window.onload= function(){
-    var seconds = 7;
+    var seconds = 20;
     var el = document.getElementById('counter');
     
     function incrementSeconds() {
